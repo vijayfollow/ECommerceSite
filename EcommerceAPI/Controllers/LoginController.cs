@@ -7,6 +7,7 @@ using System.Web.Http;
 using DataAccessLayer;
 using DataAccessLayer.Repositories;
 using System.Web.Http.Cors;
+using System.Data;
 
 namespace EcommerceAPI.Controllers
 {
@@ -22,11 +23,12 @@ namespace EcommerceAPI.Controllers
             return Request.CreateResponse(HttpStatusCode.OK, status);
         }
 
-        //public HttpResponseMessage UserLogin(UserData loginData)
-        //{
-        //    int status = _iLoginRepository.UserLogin(loginData);
-        //    return Request.CreateResponse(HttpStatusCode.OK, status);
-        //}
+        [HttpGet]
+        public HttpResponseMessage UserLogin([FromUri]UserData loginData)
+        {
+            DataTable UserLogin = _iLoginRepository.UserLogin(loginData);
+            return Request.CreateResponse(HttpStatusCode.OK, UserLogin);
+        }
 
     }
 }
